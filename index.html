@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tester</title>
+	<style>
+		h1{
+			text-align: center
+		}
+		textarea {
+			resize: none;
+			background: #fce9c0; /* Цвет фона */
+    		border: 2px solid #a9c358; /* Параметры рамки */
+    		padding: 10px; /* Поля */
+    		width: 100%; /* Ширина */
+    		height: 200px; /* Высота */
+    		box-sizing: border-box; /* Алгоритм расчёта ширины */
+    		font-size: 20px; /* Размер шрифта */
+    		font-family: Courier-New;
+		}
+		.button {
+    background-color: Gray; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    float: left;
+}
+
+.button:hover {
+    background-color: #3e8e41;
+}
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+.content {
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+}
+</style>
+
+
+</head>
+<body>
+<audio src="1.mp3" autoplay="autoplay"></audio>
+
+	<video autoplay muted loop id="myVideo">
+  		<source  src="bg.mp4" type="video/mp4">
+  		Your browser does not support HTML5 video.
+	</video>
+<div class="content" id="one">
+	<h1 >Зашифровка данных </h1>
+	<textarea  id="1"></textarea>
+	<button class="button" id="2">convert</button> <button class="button" id="7">transcript data</button>
+</div>
+<div class="content" id="two" style="visibility: hidden">
+	<h1 >Раcшифровка данных </h1>
+	<textarea  id="3"></textarea>
+	<button class="button" id="4">convert</button> <button class="button" id="123">back</button>
+</div>
+
+<script type="text/javascript" src="./main.js"></script>
+</body>
+</html>
