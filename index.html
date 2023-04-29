@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tester</title>
+	<meta charset="UTF-8">
+	<title>Shmith-v2.1</title>
 	<style>
 		h1{
 			text-align: center
@@ -60,16 +61,52 @@
   		Your browser does not support HTML5 video.
 	</video>
 <div class="content" id="one">
-	<h1 >Зашифровка данных </h1>
+	<h1 >Encryption data</h1>
 	<textarea  id="1"></textarea>
 	<button class="button" id="2">convert</button> <button class="button" id="7">transcript data</button>
 </div>
 <div class="content" id="two" style="visibility: hidden">
-	<h1 >Раcшифровка данных </h1>
+	<h1 >Decryption data</h1>
+	<input id="inp" placeholder="keyof">
 	<textarea  id="3"></textarea>
 	<button class="button" id="4">convert</button> <button class="button" id="123">back</button>
 </div>
 
 <script type="text/javascript" src="./main.js"></script>
+<script type="text/javascript">
+	document.addEventListener('keydown', function(event){
+		
+		if (event.code == "Space") {
+			var audio = new Audio(); 
+			audio.src = '2.mp3'; 
+			audio.autoplay = true; 
+		}
+		else if (event.keyCode == "46"){
+			document.getElementById(1).value = '';
+		}
+		else{
+			var audio = new Audio(); 
+			audio.src = '1.mp3'; 
+			audio.autoplay = true; 
+		}
+	});
+	
+	document.getElementById(7).onclick=()=>{
+		document.getElementById("two").style.visibility = "visible";
+		document.getElementById("one").style.visibility = "hidden";
+	}
+	
+	document.getElementById(123).onclick=()=>{
+		document.getElementById("two").style.visibility = "hidden";
+		document.getElementById("one").style.visibility = "visible";
+	}
+
+	document.getElementById(2).onclick=()=>{
+		document.getElementById(1).value = shipher.encrypt(document.getElementById(1).value);
+	}
+	document.getElementById(4).onclick=()=>{
+		document.getElementById(3).value = shipher.decrypt(document.getElementById(3).value, document.getElementById("inp").value.split(','));
+	}
+</script>
 </body>
 </html>
