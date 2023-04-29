@@ -1,141 +1,132 @@
-var text = document.getElementById(1).value;
-var str = [], n, r;
-str[99999] = 5; 
-var alf1 = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-'u', 'v', 'w', 'x', 'y', 'z', ':', ',', '.', '[', ']', '!', '?', ' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-var alf2 = [
-        ['Ï', 'ƒ'],
-        ['ắ', '✯'],
-        ['爪', '¢'],
-        ['ö', '₤'],
-        ['テ', '♯'],
-        ['Ä', '₣'],
-        ['₦', '♜'],
-        ['₰', '◭'],
+class ShipherShmith{
+    constructor(){
+        this._simv = [
+            ['Ï', 'ƒ'], // aA
+            ['ắ', '✯'], // bB
+            ['爪', '¢'], // cC
+            ['ö', '₤'], // dD
+            ['テ', '♯'], // eE
+            ['Ä', '₣'], // fF
+            ['₦', '♜'], // gG
+            ['₰', '◭'], // hH
 
-        ['ɀ', '◈'],
-        ['ק', '♟'],
-        ['ŉ', '६'],
-        ['ẍ', '⋵'],
-        ['方', '♝'],
-        ['￥', '⊾'],
-        ['ľ', '٥'],
-        ['ẅ', '⁂'],
+            ['ɀ', '◈'], // iI
+            ['ק', '♟'],
+            ['ŉ', '६'], // kK
+            ['ẍ', '⋵'], // lL
+            ['方', '♝'], // mM
+            ['￥', '⊾'], // nN
+            ['ľ', '٥'], // oO
+            ['ẅ', '⁂'], // pP
 
-        ['ẵ', '☣'],
-        ['℟', '♚'],
-        ['ໂ', 'ự'],
-        ['ᵰ', '➦'],
-        ['į', '✖'],
-        ['ḿ', 'ಭ'],
-        ['∮', 'ǿ'],
-        ['ﻸ', '⤱'],
-        ['♅', '〴'],
-        ['ű', 'ソ'],
+            ['ẵ', '☣️'], // qQ
+            ['℟', '♚'], // rR
+            ['ໂ', 'ự'], // sS
+            ['ᵰ', '➦'], // tT
+            ['į', '✖️'], // uU
+            ['ḿ', 'ಭ'], // vV
+            ['∮', 'ǿ'], // wW
+            ['ﻸ', '⤱'],
+            ['♅', '〴'],
+            ['ű', 'ソ'], // zZ
 
-        // special simv
-        ['◎', '⋔'],
-        ['⊗', '⋬'],
-        ['≛', '⋨'],
-        ['⋰', '⊼'],
-        ['⋱', '⋽'],
-        ['⋇', '∇'],
-        ['∏', '⊭'],
-        ['≉', '∰'],
+            // special simv
+            ['◎', '⋔'], // :
+            ['⊗', '⋬'], // ,
+            ['≛', '⋨'], // .
+            ['⋰', '⊼'], // [
+            ['⋱', '⋽'], // ]
+            ['⋇', '∇'], // !
+            ['∏', '⊭'], // ?
+	    ['∺', 'ⅸ'], // +
+	    ['ⅰ', '≝'], // -
+	    ['ℒ', '℻'], // =
+	    ['℣', 'ℭ'], // /
+	    ['⋙', '≞'], // ;
+	    ['〄', '✠'], // %
+	    ['☬', '❞'], // *
+
+	    ['ῲ', 'ᶋ'], // {
+	    ['ᵱ', '░'], // }
+	    ['Ὸ', 'ᵫ'], // <
+	    ['ᶶ', 'Ώ'], // >
+	    ['ᴥ', 'ᵹ'], // |
+	    ['◔', '🔒'], // "
+            ['≉', '∰'], // space
+
+            // numbers
+            ['◟', '▖'], // 0
+            ['▙', '◜'], // 1
+            ['◠', '▜'], // 2
+            ['▞', '◡'], // 3
+            ['◚', '✙'], // 4
+            ['▘', '◛'], // 5
+            ['ᶌ', '▗'], // 6
+            ['◌', '☩'], // 7
+            ['◶', '◬'], // 8
+            ['☠️', '◷'], // 9
         ];
+        this._alfabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:,.[]!?+-=/;%*{}<>|' 0123456789";
+    }
 
-function getRandomArbitrary(min, max) {
-    min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-function Convert(){
-		for(var i = 0; i < str.length; i++){
-			str[i] = ' ';
+    get_index_simv(char){
+        if (this._alfabet.indexOf(char) >= 25)
+            return this._alfabet.indexOf(char) - 25;
+        return this._alfabet.indexOf(char);
+    }
+
+    encrypt(text){
+		try{
+			let result = '', text_array = text.split('');
+			for(let i = 0; i < text_array.length; i++)
+				result += this._simv[this.get_index_simv(text_array[i])][Math.floor(Math.random() * 2)];
+			
+			let hash_start = '';
+			let max_length = Math.floor(Math.random() * 16);
+			if (max_length == 0){max_length = 1;}
+			for(let i = 0; i < max_length; i++)
+				hash_start += this._simv[Math.floor(Math.random() * 43)][Math.floor(Math.random() * 2)];
+
+			let hash_end = '';
+			for(let i = 0; i < max_length; i++)
+				hash_end += this._simv[Math.floor(Math.random() * 43)][Math.floor(Math.random() * 2)];
+			
+			let delta = result.length;
+			result = hash_start + result + hash_end;
+			let keyOf = (hash_start.length - 1).toString() + "," + ((hash_start.length - 1) + (delta)).toString();
+			return result + '\nKeyOf: ' + keyOf;
 		}
-        for (var i = 0; i < str.length; i++) {
-        	for (var j = 0; j < 60; j++) {
-            	if (text[i] == alf1[j]) {
-            		if(j >= 34) {n = j - 34; r = getRandomArbitrary(0, 1);str[i] = alf2[n][r];}
-            		else{
-            			    n = j; 
-            				r = getRandomArbitrary(0, 1);
-            				str[i] = alf2[n][r];
-            		}
-            	}	
-  			}
-        }
+		catch(err){
+			alert("Error! the text should consist only of these characters: 'abcdefghijklmnopqrstuvwxyz or ABCDEFGHIJKLMNOPQRSTUVWXYZ and :,.[]! 0123456789'");
+		}
+    }
 
-}
-
-function isConvert(){
-	for(var key = 0; key < text.length; key++){
-		for (var i = 0; i < alf2.length; i++) {
-        	for (var j = 0; j < alf2[i].length; j++) {
-            	if (text[key] == alf2[i][j]) {
-            		str[key] = alf1[i];
-            	}
-  			}
-        }
+	remove(text, start_pos, end_pos){
+		let result = '';
+		for (let i = start_pos + 1; i < end_pos + 1; i++)
+			result += text[i];
+		return result;
 	}
 
-
-}
-
-var str2 = [];
-document.getElementById(2).onclick=()=>{
-	text = document.getElementById(1).value;
-	Convert();
-	document.getElementById(1).value = '';
-	str2 = '';
-	for(var i = 0; i < text.length; i++){
-		str2 += str[i];
+    decrypt(text, keyof){
+		let result_array = this.remove(text, Number(keyof[0]), Number(keyof[1])).split('');
+		let decrypt_result = '';
+		console.log(result_array)
+		for(let i = 0; i < result_array.length; i++){
+			let index = 0;
+			for (let j = 0; j < this._simv.length; j++){
+				if (result_array[i] == this._simv[j][0] || result_array[i] == this._simv[j][1]){
+					index = j;
+					break;
+				}
+			}
+			if (index > 25 && index < 51)
+				index += 25;
+			decrypt_result += this._alfabet[index];
+		}
+		return decrypt_result;    
 	}
-	document.getElementById(1).value = str2;
-}
-document.getElementById(4).onclick=()=>{
-	text = document.getElementById(3).value;
-	isConvert();
-	document.getElementById(3).value = '';
-	str2 = '';
-	for(var i = 0; i < text.length; i++){
-		str2 += str[i];
-	}
-	document.getElementById(3).value = str2;
+	
 }
 
-
-function playSound() {
-  var audio = new Audio(); // Создаём новый элемент Audio
-  audio.src = '1.mp3'; // Указываем путь к звуку "клика"
-  audio.autoplay = true; // Автоматически запускаем
-}
-function playSound2() {
-  var audio = new Audio(); // Создаём новый элемент Audio
-  audio.src = '2.mp3'; // Указываем путь к звуку "клика"
-  audio.autoplay = true; // Автоматически запускаем
-}
-
-document.addEventListener('keydown', function(){
-		
-		if (event.code == "Space") {
- 				playSound2()
-    	}
-    	else if (event.keyCode == "46"){
-    		document.getElementById(1).value = '';
-    	}
-    	else{
-    		playSound()
-    	}
-});
-
-document.getElementById(7).onclick=()=>{
-	document.getElementById("two").style.visibility = "visible";
-	document.getElementById("one").style.visibility = "hidden";
-}
-document.getElementById(123).onclick=()=>{
-	document.getElementById("two").style.visibility = "hidden";
-	document.getElementById("one").style.visibility = "visible";
-}
-
+let shipher = new ShipherShmith();
